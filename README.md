@@ -42,5 +42,27 @@ PHP + HTML form hosted on Nginx:
 
 ```snort
 alert tcp any any -> 192.168.1.10 80 (msg:"Brute-Force POST Detected"; flow:to_server,established; content:"POST"; http_method; threshold:type threshold, track by_src, count 5, seconds 10; sid:1000002; rev:1;)
+```
+🧪 Attack Simulation
+The following loop simulates 10 failed login attempts:
 
+for i in {1..10}; do 
+  curl -X POST http://192.168.1.10/login-lab/index.php -d "username=admin&password=fail$i"
+  sleep 1 done
+
+  ✅ Detection Output
+Snort on pfSense successfully detected the simulated attack and triggered the following alert:
+
+“Brute-Force POST Detected”
+
+📘 Learning Outcome
+Understood how Snort analyzes application-layer traffic
+
+Gained hands-on experience configuring IDS rules
+
+Demonstrated how brute-force attacks can be detected in real-time
+
+👨‍💻 Author
+Cybersecurity enthusiast working towards a role in SOC Analysis / Threat Detection / Incident Response.
+This is part of my self-built cybersecurity lab journey
 
